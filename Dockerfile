@@ -1,31 +1,25 @@
-# Base image with Java and Maven
+# Stage 1: Build the plugin
 FROM maven:3.9.6-eclipse-temurin-11 AS builder
 
-# Set work directory
 WORKDIR /app
 
-# Copy project files
+# Copy source code
 COPY . .
+
+# Ensure index.jelly exists to satisfy maven-hpi-plugin
+RUN mkdir -p src/main/resources && \
+    echo "<?jelly escape-by-default='true'?>\n<div>Default plugin view</div>" > src/main/resources/index.jelly
 
 # Build the plugin
 RUN mvn clean install -DskipTests
 
-# -------------------------------------------
-# Runtime image to run Jenkins with the plugin
-# -------------------------------------------
-FROM jenkins/jenkins:lts-jdk11
+# Stage 2: Runtime container (optional if you're just building the plugin)
+FROM eclipse-temurin:11-jre
 
-# Skip setup wizard
-ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
+WORKDIR /plugin
 
-# Create plugins directory if not exists
-RUN mkdir -p /usr/share/jenkins/ref/plugins
+# Copy built plugin .hpi file from the builder stage
+COPY --from=builder /app/target/*.hpi ./my-jenkins-plugin.hpi
 
-# Copy the HPI plugin built from previous stage
-COPY --from=builder /app/target/*.hpi /usr/share/jenkins/ref/plugins/
-
-# Expose Jenkins default port
-EXPOSE 8080
-
-# Default command
-CMD ["jenkins"]
+# Optional: CMD to keep container alive or copy somewhere else
+CMD ["ls", "-l", "/plugin"]
