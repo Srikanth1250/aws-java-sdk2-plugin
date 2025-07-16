@@ -8,8 +8,8 @@
   <parent>
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <version>4.54</version> <!-- or latest available -->
-    <relativePath/> <!-- important: disable local parent -->
+    <version>4.54</version>
+    <relativePath/> <!-- Use Jenkins plugin parent from remote repo -->
   </parent>
 
   <groupId>com.example.jenkins</groupId>
@@ -17,22 +17,35 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>hpi</packaging>
 
-  <name>My Jenkins Plugin</name>
-  <description>Custom Jenkins plugin example</description>
-  <url>http://your.company/plugin</url>
-
   <properties>
     <jenkins.version>2.440.1</jenkins.version>
     <java.level>11</java.level>
+    <maven.compiler.source>${java.level}</maven.compiler.source>
+    <maven.compiler.target>${java.level}</maven.compiler.target>
   </properties>
 
+  <repositories>
+    <repository>
+      <id>jenkins-releases</id>
+      <url>https://repo.jenkins-ci.org/releases/</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>jenkins-releases</id>
+      <url>https://repo.jenkins-ci.org/releases/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
   <dependencies>
-    <!-- Add plugin-specific dependencies here -->
-    <!-- Example: add commons-lang3 -->
+    <!-- Add plugin dependencies here -->
+    <!-- Example: Jenkins core APIs -->
     <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>3.12.0</version>
+      <groupId>org.jenkins-ci.main</groupId>
+      <artifactId>jenkins-core</artifactId>
+      <version>${jenkins.version}</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 
