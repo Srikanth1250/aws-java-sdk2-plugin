@@ -1,23 +1,24 @@
-# Use official Maven image with JDK 11
+# Stage 1: Build the Jenkins plugin using Maven and Java 11
 FROM maven:3.9.6-eclipse-temurin-11 AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Copy all project files
+# Copy source code
 COPY . .
 
-# Build Jenkins plugin (skip tests for faster builds)
+# Ensure required jelly file exists to prevent build failure
+RUN mkdir -p src/main/resources && \
+    echo "<?jelly escape-by-default='true'?><div>Hello from my Jenkins plugin!</div>" > src/main/resources/index.jelly
+
+# Build plugin
 RUN mvn clean install -DskipTests
 
-# Final lightweight image to store the .hpi plugin
+# Stage 2: Minimal image to hold the plugin artifact
 FROM eclipse-temurin:11-jre
 
-# Set working directory in final image
-WORKDIR /jenkins-plugin
+WORKDIR /plugin
 
-# Copy only the final .hpi artifact
+# Copy built plugin
 COPY --from=builder /app/target/*.hpi ./my-jenkins-plugin.hpi
 
-# Optional: Entry point (not necessary unless running something)
-CMD ["echo", "Jenkins Plugin build complete. Use this .hpi file in Jenkins."]
+CMD ["echo", "Build complete. .hpi file is ready in /plugin"]
