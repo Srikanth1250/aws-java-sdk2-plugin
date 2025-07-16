@@ -2,7 +2,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.jenkins-ci.plugins</groupId>
+    <artifactId>plugin</artifactId>
+    <version>4.54</version> <!-- or latest available -->
+    <relativePath/> <!-- important: disable local parent -->
+  </parent>
 
   <groupId>com.example.jenkins</groupId>
   <artifactId>my-jenkins-plugin</artifactId>
@@ -10,58 +18,22 @@
   <packaging>hpi</packaging>
 
   <name>My Jenkins Plugin</name>
-  <description>Custom Jenkins plugin</description>
+  <description>Custom Jenkins plugin example</description>
   <url>http://your.company/plugin</url>
 
   <properties>
     <jenkins.version>2.440.1</jenkins.version>
     <java.level>11</java.level>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
-  <repositories>
-    <repository>
-      <id>jenkins-releases</id>
-      <url>https://repo.jenkins-ci.org/releases/</url>
-    </repository>
-  </repositories>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <id>jenkins-releases</id>
-      <url>https://repo.jenkins-ci.org/releases/</url>
-    </pluginRepository>
-  </pluginRepositories>
-
   <dependencies>
-    <!-- Required: Jenkins core dependency -->
+    <!-- Add plugin-specific dependencies here -->
+    <!-- Example: add commons-lang3 -->
     <dependency>
-      <groupId>org.jenkins-ci.main</groupId>
-      <artifactId>jenkins-core</artifactId>
-      <version>${jenkins.version}</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <!-- Optional: Jenkins plugin annotations -->
-    <dependency>
-      <groupId>org.jenkins-ci.plugins</groupId>
-      <artifactId>plugin</artifactId>
-      <version>4.54</version>
-      <scope>provided</scope>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.12.0</version>
     </dependency>
   </dependencies>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.jenkins-ci.tools</groupId>
-        <artifactId>maven-hpi-plugin</artifactId>
-        <version>3.50</version>
-        <extensions>true</extensions>
-        <configuration>
-          <compatibleSinceVersion>1.0</compatibleSinceVersion>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>
