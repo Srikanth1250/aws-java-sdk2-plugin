@@ -1,102 +1,96 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.jenkins-ci.plugins</groupId>
-    <artifactId>plugin</artifactId>
-    <version>5.11</version>
-    <relativePath />
-  </parent>
 
-  <groupId>io.jenkins.plugins.aws-java-sdk2</groupId>
-  <artifactId>aws-java-sdk2-parent</artifactId>
-  <version>${revision}-${changelist}</version>
-  <packaging>pom</packaging>
-  <name>Amazon Web Services SDK 2 :: Parent</name>
-  <description>This plugin provides AWS SDK for Java for other plugins.</description>
-  <url>https://github.com/jenkinsci/aws-java-sdk2-plugin</url>
-
-  <licenses>
-    <license>
-      <name>MIT License</name>
-      <url>https://opensource.org/licenses/MIT</url>
-    </license>
-  </licenses>
-
-  <modules>
-    <module>aws-java-sdk2-apigateway</module>
-    <module>aws-java-sdk2-autoscaling</module>
-    <module>aws-java-sdk2-cloudformation</module>
-    <module>aws-java-sdk2-cloudfront</module>
-    <module>aws-java-sdk2-cloudwatch</module>
-    <module>aws-java-sdk2-cloudwatchlogs</module>
-    <module>aws-java-sdk2-codebuild</module>
-    <module>aws-java-sdk2-codedeploy</module>
-    <module>aws-java-sdk2-core</module>
-    <module>aws-java-sdk2-ec2</module>
-    <module>aws-java-sdk2-ecr</module>
-    <module>aws-java-sdk2-ecs</module>
-    <module>aws-java-sdk2-efs</module>
-    <module>aws-java-sdk2-elasticbeanstalk</module>
-    <module>aws-java-sdk2-elasticloadbalancingv2</module>
-    <module>aws-java-sdk2-iam</module>
-    <module>aws-java-sdk2-kinesis</module>
-    <module>aws-java-sdk2-lambda</module>
-    <module>aws-java-sdk2-organizations</module>
-    <module>aws-java-sdk2-s3</module>
-    <module>aws-java-sdk2-secretsmanager</module>
-    <module>aws-java-sdk2-sns</module>
-    <module>aws-java-sdk2-sqs</module>
-    <module>aws-java-sdk2-ssm</module>
-  </modules>
-
-  <scm child.scm.connection.inherit.append.path="false" child.scm.developerConnection.inherit.append.path="false" child.scm.url.inherit.append.path="false">
-    <connection>scm:git:https://github.com/jenkinsci/aws-java-sdk2-plugin.git</connection>
-    <developerConnection>scm:git:git@github.com:jenkinsci/aws-java-sdk2-plugin.git</developerConnection>
-    <tag>${scmTag}</tag>
-    <url>https://github.com/jenkinsci/aws-java-sdk2-plugin</url>
-  </scm>
+  <groupId>com.example.jenkins</groupId>
+  <artifactId>my-jenkins-plugin</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>hpi</packaging>
 
   <properties>
-    <revision>2.31.26</revision>
-    <changelist>999999-SNAPSHOT</changelist>
-    <!-- https://www.jenkins.io/doc/developer/plugin-development/choosing-jenkins-baseline/ -->
-    <jenkins.baseline>2.479</jenkins.baseline>
-    <jenkins.version>${jenkins.baseline}.1</jenkins.version>
-    <autoVersionSubmodules>true</autoVersionSubmodules>
-    <spotless.check.skip>false</spotless.check.skip>
+    <jenkins.version>2.440.1</jenkins.version>
+    <java.level>11</java.level>
+    <maven.compiler.source>${java.level}</maven.compiler.source>
+    <maven.compiler.target>${java.level}</maven.compiler.target>
   </properties>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>io.jenkins.tools.bom</groupId>
-        <artifactId>bom-${jenkins.baseline}.x</artifactId>
-        <version>4628.v2b_234a_1a_20d0</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>software.amazon.awssdk</groupId>
-        <artifactId>bom</artifactId>
-        <version>${revision}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
 
   <repositories>
     <repository>
-      <id>repo.jenkins-ci.org</id>
-      <url>https://repo.jenkins-ci.org/public/</url>
+      <id>jenkins-releases</id>
+      <url>https://repo.jenkins-ci.org/releases/</url>
     </repository>
   </repositories>
 
-  <pluginRepositories>
-    <pluginRepository>
-      <id>repo.jenkins-ci.org</id>
-      <url>https://repo.jenkins-ci.org/public/</url>
-    </pluginRepository>
-  </pluginRepositories>
+  <dependencies>
+    <!-- Jenkins core -->
+    <dependency>
+      <groupId>org.jenkins-ci.main</groupId>
+      <artifactId>jenkins-core</artifactId>
+      <version>${jenkins.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Maven plugin API -->
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>3.9.6</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-artifact</artifactId>
+      <version>3.9.6</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+      <version>3.9.6</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-model</artifactId>
+      <version>3.9.6</version>
+    </dependency>
+
+    <!-- Plexus -->
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+      <version>3.5.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-archiver</artifactId>
+      <version>4.8.0</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Jenkins Plugin Support -->
+      <plugin>
+        <groupId>org.jenkins-ci.tools</groupId>
+        <artifactId>maven-hpi-plugin</artifactId>
+        <version>3.50</version>
+        <extensions>true</extensions>
+      </plugin>
+
+      <!-- Compiler Plugin -->
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+        <configuration>
+          <source>${java.level}</source>
+          <target>${java.level}</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
