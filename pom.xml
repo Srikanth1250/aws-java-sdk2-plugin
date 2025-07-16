@@ -9,9 +9,14 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>hpi</packaging>
 
+  <name>My Jenkins Plugin</name>
+  <description>Custom Jenkins plugin</description>
+  <url>http://your.company/plugin</url>
+
   <properties>
     <jenkins.version>2.440.1</jenkins.version>
     <java.level>11</java.level>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <repositories>
@@ -28,6 +33,24 @@
     </pluginRepository>
   </pluginRepositories>
 
+  <dependencies>
+    <!-- Required: Jenkins core dependency -->
+    <dependency>
+      <groupId>org.jenkins-ci.main</groupId>
+      <artifactId>jenkins-core</artifactId>
+      <version>${jenkins.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Optional: Jenkins plugin annotations -->
+    <dependency>
+      <groupId>org.jenkins-ci.plugins</groupId>
+      <artifactId>plugin</artifactId>
+      <version>4.54</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
   <build>
     <plugins>
       <plugin>
@@ -35,11 +58,10 @@
         <artifactId>maven-hpi-plugin</artifactId>
         <version>3.50</version>
         <extensions>true</extensions>
+        <configuration>
+          <compatibleSinceVersion>1.0</compatibleSinceVersion>
+        </configuration>
       </plugin>
     </plugins>
   </build>
-
-  <dependencies>
-    <!-- Add any plugin-specific dependencies here -->
-  </dependencies>
 </project>
