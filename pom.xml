@@ -1,13 +1,45 @@
-<repositories>
-  <repository>
-    <id>jenkins-releases</id>
-    <url>https://repo.jenkins-ci.org/releases/</url>
-  </repository>
-</repositories>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-<pluginRepositories>
-  <pluginRepository>
-    <id>jenkins-releases</id>
-    <url>https://repo.jenkins-ci.org/releases/</url>
-  </pluginRepository>
-</pluginRepositories>
+  <groupId>com.example.jenkins</groupId>
+  <artifactId>my-jenkins-plugin</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>hpi</packaging>
+
+  <properties>
+    <jenkins.version>2.440.1</jenkins.version>
+    <java.level>11</java.level>
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>jenkins-releases</id>
+      <url>https://repo.jenkins-ci.org/releases/</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>jenkins-releases</id>
+      <url>https://repo.jenkins-ci.org/releases/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.jenkins-ci.tools</groupId>
+        <artifactId>maven-hpi-plugin</artifactId>
+        <version>3.50</version>
+        <extensions>true</extensions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <!-- Add any plugin-specific dependencies here -->
+  </dependencies>
+</project>
