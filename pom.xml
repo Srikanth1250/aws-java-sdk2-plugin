@@ -4,7 +4,6 @@
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
-
   <groupId>com.example.jenkins</groupId>
   <artifactId>my-jenkins-plugin</artifactId>
   <version>1.0-SNAPSHOT</version>
@@ -13,8 +12,6 @@
   <properties>
     <jenkins.version>2.440.1</jenkins.version>
     <java.level>11</java.level>
-    <maven.compiler.source>${java.level}</maven.compiler.source>
-    <maven.compiler.target>${java.level}</maven.compiler.target>
   </properties>
 
   <repositories>
@@ -24,72 +21,20 @@
     </repository>
   </repositories>
 
-  <dependencies>
-    <!-- Jenkins core -->
-    <dependency>
-      <groupId>org.jenkins-ci.main</groupId>
-      <artifactId>jenkins-core</artifactId>
-      <version>${jenkins.version}</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <!-- Maven plugin API -->
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-plugin-api</artifactId>
-      <version>3.9.6</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-artifact</artifactId>
-      <version>3.9.6</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-project</artifactId>
-      <version>3.9.6</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-model</artifactId>
-      <version>3.9.6</version>
-    </dependency>
-
-    <!-- Plexus -->
-    <dependency>
-      <groupId>org.codehaus.plexus</groupId>
-      <artifactId>plexus-utils</artifactId>
-      <version>3.5.1</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.codehaus.plexus</groupId>
-      <artifactId>plexus-archiver</artifactId>
-      <version>4.8.0</version>
-    </dependency>
-  </dependencies>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>jenkins-releases</id>
+      <url>https://repo.jenkins-ci.org/releases/</url>
+    </pluginRepository>
+  </pluginRepositories>
 
   <build>
     <plugins>
-      <!-- Jenkins Plugin Support -->
       <plugin>
         <groupId>org.jenkins-ci.tools</groupId>
         <artifactId>maven-hpi-plugin</artifactId>
         <version>3.50</version>
         <extensions>true</extensions>
-      </plugin>
-
-      <!-- Compiler Plugin -->
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.11.0</version>
-        <configuration>
-          <source>${java.level}</source>
-          <target>${java.level}</target>
-        </configuration>
       </plugin>
     </plugins>
   </build>
